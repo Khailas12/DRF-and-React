@@ -1,6 +1,8 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import sys
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -68,29 +70,40 @@ WSGI_APPLICATION = 'main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 load_dotenv()
 user = os.getenv('USER')
 password = os.getenv('PASSWORD')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'drf_and_react',
-        'USER': user,
-        'PASSWORD': password,
-        'HOST': 'localhost',
-        'PORT': '',
+
+# https://stackoverflow.com/questions/14186055/django-test-app-error-got-an-error-creating-the-test-database-permission-deni    -> soution for db permission denied error
+TESTING = sys.argv[1:2] == ['test']
+if TESTING==False:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'drf_and_react',
+            'USER': user,
+            'PASSWORD': password,
+            'HOST': 'localhost',
+            'PORT': '',
+            'TEST': {
+                'NAME': 'model_test'
+            }
+        }
     }
-}
-
-
+    
+else:   # this is used for testing puspose because the postgesql's permission is denied
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'TEST': {
+                'NAME': BASE_DIR / 'test_db.sqlite3'
+            }
+        }
+    }
+    
+    
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

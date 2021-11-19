@@ -4,6 +4,7 @@ from blog.models import Post, Category
 
 
 class TestCreatePost(TestCase):
+    
     @classmethod
     def setup_test_data(cls):
         test_category = Category.objects.create(name='initial')
@@ -23,16 +24,22 @@ class TestCreatePost(TestCase):
         )
         test_post.save()
         
-    def test_blog_content(self):
-        post = Post.post_objects.get(id=1)
-        category = Category.objects.get(id=1)
+    def test_blog_content(self, *args, **kwargs):
         
-        author = f'{post.author}'
-        excerpt = f'{post.excerpt}'
-        title = f'{post.title}'
-        content = f'{post.content}'
-        status = f'{post.status}'
-        
+        try:
+            post = Post.post_objects.get(id=1)
+            category = Category.objects.get(id=1)
+        except Post and Category.DoesNotExist:
+            post = None
+            category = None
+
+            author = f'{post.author}'
+            excerpt = f'{post.excerpt}'
+            title = f'{post.title}'
+            content = f'{post.content}'
+            status = f'{post.status}'
+            
+            
         # making sure that the data ensured is the actual data is inserted into the table
         self.assertEqual(author, 'user_1')
         self.assertEqual(title, 'hello world')
