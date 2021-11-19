@@ -4,8 +4,8 @@ from django.utils import timezone
 
 
 options = (
+    ('published', 'Published'),
     ('draft', 'Draft'),
-    ('published', 'Published')
 )
 
 class Category(models.Model):
@@ -17,10 +17,9 @@ class Category(models.Model):
     
 class Post(models.Model):   # another model
     
-    class PostObjects(models.Manager):  # instead of Objects.all() it shows the data of published one.
+    class PostObjects(models.Manager):  # instead of Objects.all() it shows the data of published one excluding draft.
         def get_queryset(self):
             return super().get_queryset().filter(status='published')    
-        
         
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, default=1
@@ -43,7 +42,7 @@ class Post(models.Model):   # another model
     post_objects = PostObjects()    # custom manager
     
     class Meta:
-        ordering = ('-published',)  # data returned descending in order
+        ordering = ['-published',]  # data returned descending in order
     
     def __str__(self):
         return self.title

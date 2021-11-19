@@ -1,8 +1,8 @@
 from django.contrib import admin
-from . import models
+from .models import Post, Category
 
 
-@admin.register(models.Post)
+@admin.register(Post)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = (
         'title', 'id', 'status', 'slug', 'author',
@@ -11,4 +11,4 @@ class AuthorAdmin(admin.ModelAdmin):
         'slug': ('title', )
     }
     
-admin.site.register(models.Category)
+admin.site.register(Category)

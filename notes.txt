@@ -1,0 +1,6 @@
+------ for testing purpose ------
+pip install coverage
+
+coverage run manage.py test
+
+coverage html   -> creates a folder htmlcov which includes the test report
