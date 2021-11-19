@@ -24,7 +24,8 @@ class Post(models.Model):   # another model
         
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, default=1
-    )
+    )   # published will be automatically assigned to the default category 
+    
     title = models.CharField(max_length=250)
     excerpt = models.TextField(null=True)
     content = models.TextField()
