@@ -37,6 +37,7 @@ class TestCreatePost(TestCase):
         status = f'{post.status}'
         
         self.assertEqual(author, 'test_user')
+        self.assertEqual(excerpt, 'Post Excerpt')
         self.assertEqual(title, 'hello world')
         self.assertEqual(content, 'Gotham is great')
         self.assertEqual(status, 'published')
