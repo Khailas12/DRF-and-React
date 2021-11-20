@@ -8,3 +8,9 @@ npm install react-router-dom
 npm install @material-ui/core
 
 pip install django-cors-headers
+
+
+to run---
+npm run build
+npm start
+npm test
