@@ -34,11 +34,13 @@ INSTALLED_APPS = [
     'blog_api',
     
     'rest_framework',
+    'corsheaders',    # allows inbrowser requests from other origins (CORS)
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -146,3 +148,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ]   # The AllowAny permission class will allow unrestricted access, regardless of if the request was authenticated or unauthenticated.
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000",
+]
