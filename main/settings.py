@@ -67,14 +67,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'main.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-
 load_dotenv()
 user = os.getenv('USER')
 password = os.getenv('PASSWORD')
-
 
 # https://stackoverflow.com/questions/14186055/django-test-app-error-got-an-error-creating-the-test-database-permission-deni    -> soution for db permission denied error
 TESTING = sys.argv[1:2] == ['test']
