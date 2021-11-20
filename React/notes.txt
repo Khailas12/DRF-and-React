@@ -1,0 +1,9 @@
+------terminal------
+npx create-react-app blog_api .
+cd blog_api
+npm start
+
+npm install react-router-dom
+npm install @material-ui/core
+
+pip install django-cors-headers
