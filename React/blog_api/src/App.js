@@ -10,22 +10,22 @@ const App = (() => {
         loading: false, // will be true while collecting data. and sets to false after collection once we gets data
         posts: null,    // stores data returned from API
     });
-
+    
     useEffect(() => {
         setAppState({ loading: true });
         const apiUrl = 'http://127.0.0.1:8000/api/';
         
         fetch(apiUrl)
-            .then((data) => data.json())
-            .then((posts) => {
-                setAppState({ loading: false, posts: posts });
-            });
+        .then((data) => data.json())
+        .then((posts) => {
+            setAppState({ loading: false, posts: posts });
+        });
     }, [setAppState]);
-
+    
     return (
         <div className='App'>
             <h1>Latest Post</h1>
-            <PostLoading isLoading={appState.loading} posts={appState.posts} />
+            <PostLoad isLoading={appState.loading} posts={appState.posts} />
         </div>
     );
 });

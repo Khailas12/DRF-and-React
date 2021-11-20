@@ -21,12 +21,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+
 const Copyright = (() => {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
 			{'Copyright © '}
 			<Link color="inherit" href="https://material-ui.com/">
-				Website
+				Your Website
 			</Link>{' '}
 			{new Date().getFullYear()}
 			{'.'}
@@ -64,7 +65,7 @@ const footers = [
 	},
 ];
 
-function Footer() {
+const Footer = (() => {
 	const classes = useStyles();
 	return (
 		<React.Fragment>
@@ -93,6 +94,6 @@ function Footer() {
 			</Container>
 		</React.Fragment>
 	);
-}
+});
 
 export default Footer;
