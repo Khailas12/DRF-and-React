@@ -3,11 +3,11 @@ from blog.models import Post
 from .serializers import PostSerializer
 
 
-class PostList(generics.ListCreateAPIView):
+class PostListView(generics.ListCreateAPIView):
     queryset = Post.post_objects.all()  # post_objects = custom manager which returns the published one
     serializer_class = PostSerializer
         
 
-class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()   # filteres data and filters based on the Id <int:pk> 
     serializer_class = PostSerializer

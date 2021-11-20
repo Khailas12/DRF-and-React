@@ -12,4 +12,5 @@ class PostSerializer(serializers.ModelSerializer):
             'excerpt',
             'content',
             'status',
+            'category'
         ]

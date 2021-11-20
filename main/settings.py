@@ -87,12 +87,9 @@ if TESTING==False:
             'PASSWORD': password,
             'HOST': 'localhost',
             'PORT': '',
-            'TEST': {
-                'NAME': 'model_test'
-            }
         }
     }
-    
+
 else:   # this is used for testing puspose because the postgesql's permission is denied
     DATABASES = {
         'default': {
