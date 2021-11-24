@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import Posts from './components/Posts';
-import PostLoading from './components/PostLoading';
+import PostLoadingComponent from './components/PostLoading';
 
 
 const App = (() => {
-    const PostLoad = PostLoading(Posts);
+    const PostLoading = PostLoadingComponent(Posts);
     const [appState, setAppState] = useState({
         loading: false, // will be true while collecting data. and sets to false after collection once we gets data
         posts: null,    // stores data returned from API
@@ -16,16 +16,16 @@ const App = (() => {
         const apiUrl = 'http://127.0.0.1:8000/api/';
         
         fetch(apiUrl)
-        .then((data) => data.json())
-        .then((posts) => {
-            setAppState({ loading: false, posts: posts });
-        });
+            .then((data) => data.json())
+            .then((posts) => {
+                setAppState({ loading: false, posts: posts });
+            });
     }, [setAppState]);
     
     return (
         <div className='App'>
             <h1>Latest Post</h1>
-            <PostLoad isLoading={appState.loading} posts={appState.posts} />
+            <PostLoading isLoading={appState.loading} posts={appState.posts} />
         </div>
     );
 });
