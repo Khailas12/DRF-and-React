@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        borderBotton: `1px solid ${theme.palette.divider}`,
     },
 }));
 
@@ -18,14 +18,14 @@ const Header = (() => {
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar
+            <AppBar 
                 position='static'
                 color='white'
                 elevation={0}
-                className={classes.appBar}  // connecting appBar
+                className={classes.appBar}
             >
                 <Toolbar>
-                    <Typography varient='h6' color='inherit' noWrap>
+                    <Typography variant='h6' color='inherit' noWrap>
                         Blog
                     </Typography>
                 </Toolbar>
@@ -33,6 +33,5 @@ const Header = (() => {
         </React.Fragment>
     );
 });
-
 
 export default Header;

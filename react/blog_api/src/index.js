@@ -9,11 +9,11 @@ import Header from './components/Header';
 
 
 const routing = (
-    <BrowserRouter>     
-        <React.StrictMode>      {/* Additional info for troubleshooting */}
+    <BrowserRouter>
+        <React.StrictMode>   {/* Additional info for troubleshooting */}
             <Header />
             <Routes>
-                <Route exact path='/' component={App} />
+                <Route exact path='/' components={App} />
             </Routes>
             {/* <Footer /> */}
         </React.StrictMode>
