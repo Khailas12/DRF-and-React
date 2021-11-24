@@ -145,8 +145,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # https://www.django-rest-framework.org/api-guide/permissions/
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ]   # The AllowAny permission class will allow unrestricted access, regardless of if the request was authenticated or unauthenticated.
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ]
 }
 
 CORS_ALLOWED_ORIGINS = [
