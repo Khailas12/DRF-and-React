@@ -14,7 +14,8 @@ const App = (() => {
 
     useEffect(() => {
         setAppState({ loading: true });
-        const apiUrl = `http://127.0.0.1:8000/api/a`;
+        // http://localhost:8000/api/   can also be used
+        const apiUrl = `http://127.0.0.1:8000/api/`;  
 
         // fetch(apiUrl)
         //     .then((data) => data.json())
@@ -25,6 +26,7 @@ const App = (() => {
         //         });
         //     });
         
+        // same functionality as fetch but used axios instead
         axios.get(apiUrl).then((posts) => {
             const allPosts = posts.data;
             setAppState({
