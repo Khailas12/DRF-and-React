@@ -5,7 +5,8 @@ from rest_framework.permissions import IsAdminUser, DjangoModelPermissionsOrAnon
 
 
 class PostListView(generics.ListCreateAPIView):
-    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly] # non authenticated users can also view data
+    
     queryset = Post.post_objects.all()  # post_objects = custom manager which returns the published one
     serializer_class = PostSerializer
         
