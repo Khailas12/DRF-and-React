@@ -10,7 +10,7 @@ import Header from './components/Header';
 
 const routing = (
     <BrowserRouter>     
-        <React.StrictMode>  // Additional info for troubleshooting
+        <React.StrictMode>      {/* Additional info for troubleshooting */}
             <Header />
             <Routes>
                 <Route exact path='/' component={App} />
