@@ -1,14 +1,14 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
-import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
-        borderBotton: `1px solid ${theme.palette.divider}`,
+        borderBottom: `1px solid ${theme.palette.divider}`,
     },
 }));
 
@@ -18,7 +18,7 @@ const Header = (() => {
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar 
+            <AppBar
                 position='static'
                 color='white'
                 elevation={0}
