@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import '/App.css';
+import './App.css';
 import Posts from './components/Posts';
 import PostLoadingComponent from './components/PostLoading';
 
 
-export default function App() {
+const App = (() => {
     const PostLoading = PostLoadingComponent(Posts);    // runs if the loading is false.
     const [appState, setAppState] = useState({
         loading: false, // true when the data is collected and becomes false while running.
@@ -13,7 +13,7 @@ export default function App() {
 
     useEffect(() => {
         setAppState({ loading: true });
-        const apiUrl = `http://127.0.0.1:8000/api`;
+        const apiUrl = `http://127.0.0.1:8000/api/a`;
 
         fetch(apiUrl)
             .then((data) => data.json())
@@ -24,11 +24,14 @@ export default function App() {
                 });
             });
     }, [setAppState]);
-    
+
     return (
         <div className='App'>
             <h1>Latest Posts</h1>
             <PostLoading isLoading={appState.loading} posts={appState.posts} />
         </div>
     );
-}
+});
+
+
+export default App;
