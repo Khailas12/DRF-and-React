@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import './App.css';
 import Posts from './components/Posts';
 import PostLoadingComponent from './components/PostLoading';
+import axios from "axios";
 
 
 const App = (() => {
@@ -15,14 +16,23 @@ const App = (() => {
         setAppState({ loading: true });
         const apiUrl = `http://127.0.0.1:8000/api/a`;
 
-        fetch(apiUrl)
-            .then((data) => data.json())
-            .then((posts) => {
-                setAppState({ 
-                    loading: false,
-                    posts: posts
-                });
+        // fetch(apiUrl)
+        //     .then((data) => data.json())
+        //     .then((posts) => {
+        //         setAppState({ 
+        //             loading: false,
+        //             posts: posts
+        //         });
+        //     });
+        
+        axios.get(apiUrl).then((posts) => {
+            const allPosts = posts.data;
+            setAppState({
+                loading: false, 
+                posts: allPosts
             });
+        })
+
     }, [setAppState]);
 
     return (
