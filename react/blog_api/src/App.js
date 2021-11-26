@@ -15,7 +15,7 @@ const App = (() => {
     useEffect(() => {
         setAppState({ loading: true });
         // http://localhost:8000/api/   can also be used
-        const apiUrl = `http://127.0.0.1:8000/api/`;
+        const apiUrl = `http://localhost:8000/api/`;
 
         // fetch(apiUrl)
         //     .then((data) => data.json())
