@@ -7,18 +7,18 @@ from django.contrib.auth.models import User
 
 class PostTests(APITestCase):
     
-    def test_view_case(self):
+    def test_view_posts(self):
         url = reverse('blog_api:listcreate')    # fetch info from blog_api urls.
-        response = self.client.get(url, format='json')  # ststus code 200 is expected.
+        response = self.client.get(url, format='json')  # status code 200 is expected.
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
         
-    def create_post(self):
+    def test_create_post(self):
         self.test_category = Category.objects.create(name='main')
         
-        self.test_user1 = User.objects.create_user(
-            username='test_user_1', password='1235456'
+        self.testuser1 = User.objects.create_user(
+            username='test_user', password='123456789'
         )
         
         data = {
@@ -28,7 +28,7 @@ class PostTests(APITestCase):
             "content": "new"
         }
         
-        url = reverse('blog_api:listcreate')
+        url = reverse('blog_api:detailcreate')
         response = self.client.post(url, data, format='json')
         
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
