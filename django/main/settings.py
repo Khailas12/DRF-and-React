@@ -157,4 +157,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-AUTH_USER_MODEL = 'jwt_user.NewUser'
+# AUTH_USER_MODEL = 'jwt_user.NewUser'
