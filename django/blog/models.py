@@ -1,7 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.utils import timezone
+from django.conf import settings
 
+
+user = settings.AUTH_USER_MODEL
 
 options = (
     ('published', 'Published'),
@@ -32,7 +35,7 @@ class Post(models.Model):   # another model
     
     published = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='blog_posts'
+        user, on_delete=models.CASCADE, related_name='blog_posts'
     )   # CASCADE = it deletes the post if the user is deleted
     status = models.CharField(
         max_length=10, choices=options, default='published'

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     
     'blog',
     'blog_api',
+    'users',
     
     'rest_framework',
     'rest_framework_simplejwt',
@@ -157,4 +158,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-# AUTH_USER_MODEL = 'jwt_user.NewUser'
+AUTH_USER_MODEL = 'users.NewUser'
