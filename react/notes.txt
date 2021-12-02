@@ -5,6 +5,7 @@ npm start
 
 npm install react-router-dom
 npm install @material-ui/core
+npm install axios
 
 pip install django-cors-headers
 
