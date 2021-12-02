@@ -1,8 +1,8 @@
 from django.contrib import admin
-from users.models import NewUser
 from django.contrib.auth.admin import UserAdmin
 from django.forms import Textarea
 from django.db import models
+from .models import NewUser
 
 
 class UserAdminConfig(UserAdmin):
@@ -29,6 +29,7 @@ class UserAdminConfig(UserAdmin):
         }),
     )
     
+    # adds custom widgets for a certain field
     formfield_overrides = {
         models.TextField: {
             'widget': Textarea(attrs={
