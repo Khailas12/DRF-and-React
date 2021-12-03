@@ -130,7 +130,6 @@ export default function SignUp() {
                                 name="password"
                                 type={showPassword ? "text" : "password"}
                                 label='Password'
-                                type="password"
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={handleChange}
