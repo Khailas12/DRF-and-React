@@ -92,9 +92,11 @@ export default function SignUp() {
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}></Avatar>
+
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
+
                 <form className={classes.form} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -128,7 +130,7 @@ export default function SignUp() {
                                 required
                                 fullWidth
                                 name="password"
-                                type={showPassword ? "text" : "password"}
+                                type={showPassword ? "type" : "password"}
                                 label='Password'
                                 id="password"
                                 autoComplete="current-password"
@@ -157,6 +159,7 @@ export default function SignUp() {
                             />
                         </Grid>
                     </Grid>
+
                     <Button
                         type="submit"
                         fullWidth
@@ -167,6 +170,7 @@ export default function SignUp() {
                     >
                         Sign Up
                     </Button>
+
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Link href="#" variant="body2">
@@ -174,6 +178,7 @@ export default function SignUp() {
                             </Link>
                         </Grid>
                     </Grid>
+                    
                 </form>
             </div>
         </Container>
