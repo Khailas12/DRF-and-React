@@ -13,6 +13,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Input from "@material-ui/core/Input";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-    const history = useNavigate();
+    const navigate = useNavigate();
     const initialFormData = Object.freeze({
         email: '',
         username: '',
@@ -53,6 +58,16 @@ export default function SignUp() {
         });
     };
 
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDownPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
@@ -64,7 +79,7 @@ export default function SignUp() {
                 password: formData.password,
             })
             .then((res) => {
-                history.push('/login');
+                navigate('/login');
                 console.log(res);
                 console.log(res.data); 
             });
@@ -106,19 +121,36 @@ export default function SignUp() {
                                 onChange={handleChange}
                             />
                         </Grid>
+
                         <Grid item xs={12}>
                             <TextField
                                 variant="outlined"
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                type={showPassword ? "text" : "password"}
+                                label='Password'
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={handleChange}
+
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position='end'>
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                            >
+                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
                             />
                         </Grid>
+                        
                         <Grid item xs={12}>
                             <FormControlLabel
                                 control={<Checkbox value="allowExtraEmails" color="primary" />}
