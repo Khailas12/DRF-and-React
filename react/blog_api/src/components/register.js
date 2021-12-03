@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 //MaterialUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -11,8 +11,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-    const history = useHistory();
+    const history = useNavigate();
     const initialFormData = Object.freeze({
         email: '',
         username: '',
@@ -58,7 +58,7 @@ export default function SignUp() {
         console.log(formData);
 
         axiosInstance
-            .post(`user/create/`, {
+            .post(`user/register/`, {
                 email: formData.email,
                 user_name: formData.username,
                 password: formData.password,
@@ -66,7 +66,7 @@ export default function SignUp() {
             .then((res) => {
                 history.push('/login');
                 console.log(res);
-                console.log(res.data);
+                console.log(res.data); 
             });
     };
 
