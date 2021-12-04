@@ -14,14 +14,17 @@ import Typography from '@material-ui/core/Typography';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../axios';
-import { InputAdornment } from '@material-ui/core';
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 
 
 const Login = (() => {
 
     const navigate = useNavigate();
-    const initialFormData = object.freeze({
+    const initialFormData = Object.freeze({
         email: '',
         password: '',
     });
@@ -77,7 +80,7 @@ const Login = (() => {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://source.unplash.com/random)',
+                        backgroundImage: 'url(https://res.cloudinary.com/dzzjp6xlv/image/upload/v1638623609/18894_wspy3l.jpg)',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -129,7 +132,7 @@ const Login = (() => {
                                     )
                                 }}
                             />
-                            
+
                             <TextField
                                 margin="normal"
                                 required
@@ -160,12 +163,11 @@ const Login = (() => {
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
+                                    <Link href="/register" variant="body2">
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>
                             </Grid>
-                            <Copyright sx={{ mt: 5 }} />
                         </Box>
                     </Box>
                 </Grid>
