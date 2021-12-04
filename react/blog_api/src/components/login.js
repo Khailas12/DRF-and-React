@@ -12,7 +12,6 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../axios';
 import IconButton from "@material-ui/core/IconButton";
@@ -59,9 +58,10 @@ const Login = (() => {
                 email: formData.email,
                 password: formData.password,
             })
-            .then((res) => {
-                localStorage.setItem('access_token', res.data.access);
-                localStorage.setItem('refresh_token', res.data.refresh);
+            .then((result) => {
+                localStorage.setItem('access_token', result.data.access);
+                localStorage.setItem('refresh_token', result.data.refresh);
+                
                 axiosInstance.defaults.headers['Authorization'] = 'JWT ' + localStorage.getItem('access_token');
                 navigate('/');
             });
@@ -172,7 +172,7 @@ const Login = (() => {
                             >
                                 Sign In
                             </Button>
-                        
+
                             <Grid container justify="flex-end">
                                 <Grid item >
                                     <Link href="#" variant="body2">

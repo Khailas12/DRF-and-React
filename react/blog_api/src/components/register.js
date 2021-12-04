@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../axios';
 import { useNavigate } from 'react-router-dom';
-//MaterialUI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,6 +16,38 @@ import Visibility from "@material-ui/icons/Visibility";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { makeStyles } from '@material-ui/core/styles';
+import { isEmail } from 'validator';
+
+
+const required = (value) => {
+    if (!value) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                This field is required!
+            </div>
+        );
+    }
+};
+
+const validEmail = (value) => {
+    if (!isEmail(value)) {
+        return (
+            <div className='alert alert-danger' role='alert'>
+                This is not a valid email
+            </div>
+        );
+    }
+};
+
+const validPassword = (value) => {
+    if (value.length < 6 || value.length > 60) {
+        return (
+            <div className='alert alert-danger' role='alert'>
+                The Password must contain minimum 6 Characters
+            </div>
+        );
+    }
+};
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +88,7 @@ export default function SignUp() {
         });
     };
 
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -76,11 +107,12 @@ export default function SignUp() {
                 email: formData.email,
                 user_name: formData.username,
                 password: formData.password,
+
             })
             .then((res) => {
                 navigate('/login');
                 console.log(res);
-                console.log(res.data); 
+                console.log(res.data);
             });
     };
 
@@ -108,6 +140,7 @@ export default function SignUp() {
                                 name="email"
                                 autoComplete="email"
                                 onChange={handleChange}
+                                validations={[required, validEmail]}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -134,6 +167,7 @@ export default function SignUp() {
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={handleChange}
+                                validations={[required, validPassword]}
 
                                 InputProps={{
                                     endAdornment: (
@@ -150,7 +184,7 @@ export default function SignUp() {
                                 }}
                             />
                         </Grid>
-                        
+
                         <Grid item xs={12}>
                             <FormControlLabel
                                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -172,12 +206,12 @@ export default function SignUp() {
 
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="/login" variant="body2">
                                 Already have an account? Sign in
                             </Link>
                         </Grid>
                     </Grid>
-                    
+
                 </form>
             </div>
         </Container>
