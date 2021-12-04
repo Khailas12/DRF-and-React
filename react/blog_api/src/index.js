@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/header';
 import Footer from './components/footer';
 import Register from './components/register';
+import Login from './components/login';
 
 
 /* strictmode highlights potential problems in an app */
@@ -15,8 +16,11 @@ const routing = (
         <React.StrictMode>  
             <Header />
             <Routes>
+
                 <Route path='/' element={<App />} />
                 <Route path='/register' element={<Register />} />
+                <Route path='/login' element={<Login />} />
+                
             </Routes>
             <Footer />
         </React.StrictMode>
