@@ -18,7 +18,6 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Image from './Image.jpg';
 
 
 
@@ -84,9 +83,11 @@ const Login = (() => {
                         backgroundImage: "url(" + imageUrl  + ")",
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                            t.palette.mode === 'dark' ? t.palette.grey[50] : t.palette.grey[900],
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
+                        filter: 'brightness(50%)',
+                        height : '530px'
                     }}
                 />
 
@@ -154,10 +155,13 @@ const Login = (() => {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
+                                className={theme.submit}
+                                onClick={handleSubmit}
                             >
                                 Sign In
                             </Button>
-                            <Grid container>
+
+                            <Grid container justify="flex-end">
                                 <Grid item xs>
                                     <Link href="#" variant="body2">
                                         Forgot password?
