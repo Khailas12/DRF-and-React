@@ -18,6 +18,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Image from './Image.jpg';
 
 
 
@@ -34,7 +35,7 @@ const Login = (() => {
     const handleChange = (e) => {
         updateFormData({
             ...formData,
-            [e.target.name]: e.target.value.trin(),
+            [e.target.name]: e.target.value.trim(),
         });
     };
 
@@ -67,7 +68,7 @@ const Login = (() => {
     };
 
     const theme = createTheme();
-
+    const imageUrl = "https://res.cloudinary.com/dzzjp6xlv/image/upload/v1638623609/18894_wspy3l.jpg"
 
     return (
         <ThemeProvider theme={theme}>
@@ -79,8 +80,8 @@ const Login = (() => {
                     xs={false}
                     sm={4}
                     md={7}
-                    sx={{
-                        backgroundImage: 'url(https://res.cloudinary.com/dzzjp6xlv/image/upload/v1638623609/18894_wspy3l.jpg)',
+                    style={{
+                        backgroundImage: "url(" + imageUrl  + ")",
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -117,6 +118,18 @@ const Login = (() => {
                                 autoComplete="email"
                                 autoFocus
                                 onChange={handleChange}
+                            />
+
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                type={showPassword ? "type" : "password"}
+                                label="Password"
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={handleChange}
 
                                 InputProps={{
                                     endAdornment: (
@@ -131,18 +144,6 @@ const Login = (() => {
                                         </InputAdornment>
                                     )
                                 }}
-                            />
-
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                onChange={handleChange}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
@@ -173,8 +174,7 @@ const Login = (() => {
                 </Grid>
             </Grid>
         </ThemeProvider>
-    )
-
+    );
 });
 
 export default Login;
