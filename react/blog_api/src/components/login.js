@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../axios';
 import IconButton from "@material-ui/core/IconButton";
@@ -55,7 +56,7 @@ const Login = (() => {
 
         axiosInstance
             .post(`token/`, {
-                email: formData.email, 
+                email: formData.email,
                 password: formData.password,
             })
             .then((res) => {
@@ -80,18 +81,19 @@ const Login = (() => {
                     sm={4}
                     md={7}
                     style={{
-                        backgroundImage: "url(" + imageUrl  + ")",
+                        backgroundImage: "url(" + imageUrl + ")",
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'dark' ? t.palette.grey[50] : t.palette.grey[900],
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         filter: 'brightness(50%)',
-                        height : '530px'
+                        height: '530px'
                     }}
                 />
 
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+
                     <Box
                         sx={{
                             my: 8,
@@ -109,70 +111,84 @@ const Login = (() => {
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                                onChange={handleChange}
-                            />
+                            <Grid container spacing={3}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        autoComplete="email"
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                type={showPassword ? "type" : "password"}
-                                label="Password"
-                                id="password"
-                                autoComplete="current-password"
-                                onChange={handleChange}
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        type={showPassword ? "type" : "password"}
+                                        label="Password"
+                                        id="password"
+                                        autoComplete="current-password"
+                                        onChange={handleChange}
 
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position='end'>
-                                            <IconButton
-                                                aria-label='toggle password visibility'
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                            >
-                                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )
-                                }}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position='end'>
+                                                    <IconButton
+                                                        aria-label='toggle password visibility'
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                    >
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <FormControlLabel
+                                        control={<Checkbox value="remember" color="primary" />}
+                                        label="Remember me"
+                                    />
+                                </Grid>
+                            </Grid>
+
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
+                                color="primary"
                                 sx={{ mt: 3, mb: 2 }}
-                                className={theme.submit}
+                                className={theme}
                                 onClick={handleSubmit}
                             >
                                 Sign In
                             </Button>
-
+                        
                             <Grid container justify="flex-end">
-                                <Grid item xs>
+                                <Grid item >
                                     <Link href="#" variant="body2">
                                         Forgot password?
                                     </Link>
                                 </Grid>
+                            </Grid>
+
+                            <Grid container justify="flex-end">
                                 <Grid item>
                                     <Link href="/register" variant="body2">
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>
                             </Grid>
+
                         </Box>
                     </Box>
                 </Grid>
