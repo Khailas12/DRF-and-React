@@ -12,21 +12,59 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../axios';
+import { InputAdornment } from '@material-ui/core';
 
-
-
-const theme = createTheme();
 
 
 const Login = (() => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+
+    const navigate = useNavigate();
+    const initialFormData = object.freeze({
+        email: '',
+        password: '',
+    });
+
+    const [formData, updateFormData] = React.useState(initialFormData);
+
+    const handleChange = (e) => {
+        updateFormData({
+            ...formData,
+            [e.target.name]: e.target.value.trin(),
         });
     };
+
+
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDownPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(formData);
+
+        axiosInstance
+            .post(`token/`, {
+                email: formData.email, 
+                password: formData.password,
+            })
+            .then((res) => {
+                localStorage.setItem('access_token', res.data.access);
+                localStorage.setItem('refresh_token', res.data.refresh);
+                axiosInstance.defaults.headers['Authorization'] = 'JWT ' + localStorage.getItem('access_token');
+                navigate('/');
+            });
+    };
+
+    const theme = createTheme();
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -75,7 +113,23 @@ const Login = (() => {
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
+                                onChange={handleChange}
+
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position='end'>
+                                            <IconButton
+                                                aria-label='toggle password visibility'
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                            >
+                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
                             />
+                            
                             <TextField
                                 margin="normal"
                                 required
@@ -85,6 +139,7 @@ const Login = (() => {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                onChange={handleChange}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
