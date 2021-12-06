@@ -20,6 +20,7 @@ import { isEmail } from 'validator';
 import { useForm, Controller } from 'react-hook-form';
 
 
+
 const required = (value) => {
     if (!value) {
         return (
@@ -124,6 +125,8 @@ const SignUp = () => {
 
 
     return (
+        <React.Fragment>
+
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
@@ -140,27 +143,27 @@ const SignUp = () => {
                             <Controller
                                 name='Email'
                                 control={control}
-                            
+                                
                                 render={({ 
                                     field: {onChange, value}, 
                                     fieldState: { error } 
                                 }) => (
                                     <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="email"
-                                        label="Email Address"
-                                        variant='filled'
-                                        value={value}
-                                        name="email"
-                                        autoComplete="email"
-                                        onChange={handleChange}
-                                        error={!!error}
-                                        helperText={error ? error.message : null}
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    variant='filled'
+                                    value={value}
+                                    name="email"
+                                    autoComplete="email"
+                                    onChange={handleChange}
+                                    error={!!error}
+                                    helperText={error ? error.message : null}
                                     />
-                                )}
-                                rules={{ required: 'Email required' }}
+                                    )}
+                                    rules={validEmail}
                             />
                         </Grid>
 
@@ -174,7 +177,7 @@ const SignUp = () => {
                                 name="username"
                                 autoComplete="username"
                                 onChange={handleChange}
-                            />
+                                />
                         </Grid>
 
                         <Grid item xs={12}>
@@ -189,7 +192,7 @@ const SignUp = () => {
                                 autoComplete="current-password"
                                 onChange={handleChange}
                                 validations={[required, validPassword]}
-
+                                
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position='end'>
@@ -197,7 +200,7 @@ const SignUp = () => {
                                                 aria-label="toggle password visibility"
                                                 onClick={handleClickShowPassword}
                                                 onMouseDown={handleMouseDownPassword}
-                                            >
+                                                >
                                                 {showPassword ? <Visibility /> : <VisibilityOff />}
                                             </IconButton>
                                         </InputAdornment>
@@ -210,7 +213,7 @@ const SignUp = () => {
                             <FormControlLabel
                                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                                 label="I want to receive inspiration, marketing promotions and updates via email."
-                            />
+                                />
                         </Grid>
                     </Grid>
 
@@ -221,7 +224,7 @@ const SignUp = () => {
                         color="primary"
                         className={classes.submit}
                         onClick={handleSubmit}
-                    >
+                        >
                         Sign Up
                     </Button>
 
@@ -236,6 +239,7 @@ const SignUp = () => {
                 </form>
             </div>
         </Container>
+    </React.Fragment>
     );
 };
 
