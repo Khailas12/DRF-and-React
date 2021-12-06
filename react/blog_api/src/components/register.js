@@ -17,6 +17,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { makeStyles } from '@material-ui/core/styles';
 import { isEmail } from 'validator';
+import { useForm, Controller } from 'react-hook-form';
 
 
 const required = (value) => {
@@ -70,8 +71,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignUp() {
+const SignUp = () => {
     const navigate = useNavigate();
+    
     const initialFormData = Object.freeze({
         email: '',
         username: '',
@@ -115,8 +117,11 @@ export default function SignUp() {
                 console.log(res.data);
             });
     };
+    
 
     const classes = useStyles();
+    const { control } = useForm();
+
 
     return (
         <Container component="main" maxWidth="xs">
@@ -128,21 +133,37 @@ export default function SignUp() {
                     Sign up
                 </Typography>
 
-                <form className={classes.form} noValidate>
+                <form className={classes.form} onSubmit={handleSubmit}>
+
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                onChange={handleChange}
-                                validations={[required, validEmail]}
+                            <Controller
+                                name='Email'
+                                control={control}
+                            
+                                render={({ 
+                                    field: {onChange, value}, 
+                                    fieldState: { error } 
+                                }) => (
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        variant='filled'
+                                        value={value}
+                                        name="email"
+                                        autoComplete="email"
+                                        onChange={handleChange}
+                                        error={!!error}
+                                        helperText={error ? error.message : null}
+                                    />
+                                )}
+                                rules={{ required: 'Email required' }}
                             />
                         </Grid>
+
                         <Grid item xs={12}>
                             <TextField
                                 variant="outlined"
@@ -216,4 +237,6 @@ export default function SignUp() {
             </div>
         </Container>
     );
-}
+};
+
+export default SignUp;
