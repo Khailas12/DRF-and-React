@@ -1,7 +1,9 @@
-from rest_framework import generics
+from rest_framework import generics, viewsets, filters
+from rest_framework.response import Response
 from blog.models import Post
 from .serializers import PostSerializer
-from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly
+from django.shortcuts import get_object_or_404
 
 
 class PostUserWritePermission(BasePermission):
@@ -12,14 +14,22 @@ class PostUserWritePermission(BasePermission):
             return True     # user can read-only the data
         return obj.author == request.user   # matching with the author which the user who made request
                     
+                    
+class PostList(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = Post.post_objects.all()
+    
+    def list(self, request):
+        serializer_class = PostSerializer(self.queryset, many=True)
+        return Response(serializer_class.data)
 
-class PostListView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = Post.post_objects.all()  # post_objects = custom manager which returns the published one
-    serializer_class = PostSerializer
+# class PostListView(generics.ListCreateAPIView):
+#     permission_classes = [IsAuthenticatedOrReadOnly]
+#     queryset = Post.post_objects.all()  # post_objects = custom manager which returns the published one
+#     serializer_class = PostSerializer
         
 
-class PostDetailView(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
-    permission_classes = [PostUserWritePermission]
-    queryset = Post.objects.all()   # filteres data and filters based on the Id <int:pk> 
-    serializer_class = PostSerializer
+# class PostDetailView(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
+#     permission_classes = [PostUserWritePermission]
+#     queryset = Post.objects.all()   # filteres data and filters based on the Id <int:pk> 
+#     serializer_class = PostSerializer
