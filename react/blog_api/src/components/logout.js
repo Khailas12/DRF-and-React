@@ -7,7 +7,7 @@ const Logout = (() => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const response = axiosInstance.post('user/logout/blacklist/', {
+        axiosInstance.post('user/logout/blacklist/', {
             refresh_token: localStorage.getItem('refresh_token'),
         });
 

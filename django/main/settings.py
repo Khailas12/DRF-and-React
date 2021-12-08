@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',    # allows inbrowser requests from other origins (CORS)
     'rest_framework_simplejwt.token_blacklist',
-
 ]
 
 MIDDLEWARE = [

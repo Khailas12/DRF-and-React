@@ -75,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
     const navigate = useNavigate();
     
+    // Object.freeze() method freezes an object. A frozen object can no longer be changed; freezing an object prevents new properties from being added to it
     const initialFormData = Object.freeze({
         email: '',
         username: '',
@@ -145,7 +146,7 @@ const SignUp = () => {
                                 control={control}
                                 
                                 render={({ 
-                                    field: {onChange, value}, 
+                                    field: {value}, 
                                     fieldState: { error } 
                                 }) => (
                                     <TextField
