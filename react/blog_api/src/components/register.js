@@ -156,7 +156,6 @@ const SignUp = () => {
                                     id="email"
                                     label="Email Address"
                                     variant='filled'
-                                    value={value}
                                     name="email"
                                     autoComplete="email"
                                     onChange={handleChange}
