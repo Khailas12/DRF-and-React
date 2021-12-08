@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use(
     async function (error) {
         const originalRequest = error.config;
 
-        if (typeof error.response === 'undefined') {
+        if (typeof error.response === 'undefined') {    // if server isn't connected 
             alert(
                 'A server/network error occured. ' +
                     'Looks like CORS might be the problem. '  +
@@ -52,13 +52,15 @@ axiosInstance.interceptors.response.use(
             if (refreshToken) {
                 const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
 
+                // exp date in token is expressed in seconds, now() returns milliseconds
                 const now = Math.ceil(Date.now() / 1000);
                 console.log(tokenParts.exp);
-
+                
                 if (tokenParts.exp > now) {
                     return axiosInstance
                         .post('/token/refresh/', { refresh: refreshToken })
                         .then((response) => {
+                            // updating the localStorage
                             localStorage.setItem('access_token', response.data.access);
                             localStorage.setItem('access_token', response.data.refresh);
 
