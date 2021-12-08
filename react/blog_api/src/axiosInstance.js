@@ -22,7 +22,7 @@ axiosInstance.interceptors.response.use(
     async function (error) {
         const originalRequest = error.config;
 
-        if (typeof error.response === 'undefined') {
+        if (typeof error.response === 'undefined') {    // if server isn't connected 
             alert(
                 'A server/netwoek error occured. ' +
                     'Looks like CORS might be the problem. '  +
@@ -34,8 +34,7 @@ axiosInstance.interceptors.response.use(
         if (
             error.response.status === 401 && 
             originalRequest.url === baseURL + 'token/refresh/'
-        )
-        {
+        ) {
             window.location.href = '/login/';
             return Promise.reject(error);
         }
@@ -44,8 +43,7 @@ axiosInstance.interceptors.response.use(
             error.response.data.code === 'token_invalid' &&
             error.response.status === 401 &&
             error.response.statusText === 'Unauthorized'
-        )
-        {
+        ) {
             const refreshToken = localStorage.getItem('refresh_token');
 
             if (refreshToken) {
@@ -58,6 +56,8 @@ axiosInstance.interceptors.response.use(
                     return axiosInstance
                         .post('/token/refresh/', { refresh: refreshToken })
                         .then((response) => {
+                        
+                            // updating the localStorage
                             localStorage.setItem('access_token', response.data.access);
                             localStorage.setItem('access_token', response.data.refresh);
 

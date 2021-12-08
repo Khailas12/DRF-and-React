@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from .serializers import RegisterUserSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
-class CustomUserCreate(APIView):
+class CustomUserCreate(APIView):    # register
     permission_classes = [AllowAny]
     
     def post(self, request):
@@ -20,3 +21,15 @@ class CustomUserCreate(APIView):
         return Response(
             req_serializer.errors, status=status.HTTP_400_BAD_REQUEST
         )
+        
+        
+class BlackListTokenView(APIView):  # logout
+    permission_class = [AllowAny]
+    
+    def post(self, request, *args, **kwargs):
+        try: 
+            refresh_token = request.data['refresh_token']
+            token = RefreshToken(refresh_token)
+            
+        except Exception as ex:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
