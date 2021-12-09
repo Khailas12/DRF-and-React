@@ -22,6 +22,12 @@ class PostList(viewsets.ViewSet):
     def list(self, request):
         serializer_class = PostSerializer(self.queryset, many=True)
         return Response(serializer_class.data)
+    
+    def retreive(self, request, pk=None):
+        post = get_object_or_404(self.queryset, pk=pk)
+        serializer_class = PostSerializer(post)
+        return Response(serializer_class.data)
+
 
 # class PostListView(generics.ListCreateAPIView):
 #     permission_classes = [IsAuthenticatedOrReadOnly]
