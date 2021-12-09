@@ -14,7 +14,8 @@ class PostUserWritePermission(BasePermission):
             return True     # user can read-only the data
         return obj.author == request.user   # matching with the author which the user who made request
                     
-                    
+                
+# CRUD                
 class PostList(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Post.post_objects.all()
