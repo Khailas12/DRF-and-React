@@ -54,6 +54,7 @@ const Posts = (props) => {
 							<Grid item key={post.id} xs={12} md={4}>
 								
 								<Card className={classes.card}>
+
 									<Link
 										color="textPrimary"
 										href={'post/' + post.slug}

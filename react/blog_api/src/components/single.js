@@ -27,7 +27,7 @@ const Post = (() => {
             setData({ posts: res.data });
             console.log(res.data);
         });
-    }, [setData]);
+    }, [slug, setData]);
 
     return (
         <Container component='main' maxWidth='md'>
