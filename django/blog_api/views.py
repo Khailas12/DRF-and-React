@@ -24,7 +24,7 @@ class PostList(viewsets.ViewSet):
         serializer_class = PostSerializer(self.queryset, many=True)
         return Response(serializer_class.data)
     
-    def retreive(self, request, pk=None):
+    def retrieve(self, request, pk=None):
         post = get_object_or_404(self.queryset, pk=pk)
         serializer_class = PostSerializer(post)
         return Response(serializer_class.data)
