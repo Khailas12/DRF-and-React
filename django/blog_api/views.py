@@ -17,12 +17,19 @@ class PostUserWritePermission(BasePermission):
         return obj.author == request.user   # matching with the author which the user who made request
                     
 
-# CRUD model viewset. This simplifies the commented codes below
+# CRUD model viewset. This simplifies code comparing with the commented codes below
 class PostList(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
-    
+
+    # for the slug field access
+    def get_object(self, quryset=None, pk=None, *args, **kwargs):       
+        item = self.kwargs.get('pk')
+        return get_object_or_404(Post, title=item)   # using letters instead of number access 
+        
+    def get_queryset(self):     # custom queryset
+        return Post.objects.all()
+
 
 """         
 # one              
