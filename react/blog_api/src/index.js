@@ -9,6 +9,7 @@ import Footer from './components/footer';
 import Register from './components/register';
 import Login from './components/login';
 import Logout from './components/logout';
+import Single from './components/single';
 
 
 /* strictmode highlights potential problems in an app */
@@ -22,6 +23,7 @@ const routing = (
                 <Route path='/register' element={<Register />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/logout' element={<Logout />} />
+                <Route path='/post/:slug' element={<Single />} />
                 
             </Routes>
             <Footer />

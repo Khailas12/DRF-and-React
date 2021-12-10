@@ -31,7 +31,7 @@ class Post(models.Model):   # another model
     title = models.CharField(max_length=250)
     excerpt = models.TextField(null=True)
     content = models.TextField()
-    slug = models.SlugField(max_length=250, unique_for_date='published')
+    slug = models.SlugField(max_length=3, unique_for_date='published')
     
     published = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(
