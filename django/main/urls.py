@@ -11,7 +11,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),    # reftreshing token
     path('admin/', admin.site.urls),
     
-    path(r'api/', include('blog_api.urls', namespace='blog_api')),
+    path('api/', include('blog_api.urls', namespace='blog_api')),
     
     path('api/user/', include('users.urls', namespace='users')),    # registering user
     

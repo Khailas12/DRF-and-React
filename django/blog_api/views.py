@@ -5,6 +5,7 @@ from blog.models import Post
 from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly
 from django.shortcuts import get_object_or_404
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication,BasicAuthentication
 
 
 class PostUserWritePermission(BasePermission):
@@ -18,7 +19,9 @@ class PostUserWritePermission(BasePermission):
 
 # CRUD model viewset. This simplifies code comparing with the commented codes below
 class PostList(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    authentication_classes = (TokenAuthentication,) 
+
     serializer_class = PostSerializer
 
     # for the slug field access

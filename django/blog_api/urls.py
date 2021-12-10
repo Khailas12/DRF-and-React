@@ -6,8 +6,6 @@ from rest_framework.routers import DefaultRouter
 app_name = 'blog_api'
 
 router = DefaultRouter()
-router.register(r'', PostList, basename='post')
+router.register('', PostList, basename='post')
 
-urlpatterns = [
-    path('', include(router.urls)),
-]
+urlpatterns = router.urls
