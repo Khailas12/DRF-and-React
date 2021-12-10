@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
+import Link from '@material-ui/core/Link';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,10 +39,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Posts = ((props) => {
-    const { posts } = props;
+const Posts = (props) => {
+	const { posts } = props;
 	const classes = useStyles();
-
 	if (!posts || posts.length === 0) return <p>Can not find any posts, sorry</p>;
 	return (
 		<React.Fragment>
@@ -52,12 +52,19 @@ const Posts = ((props) => {
 						return (
 							// Enterprise card is full width at sm breakpoint
 							<Grid item key={post.id} xs={12} md={4}>
+								
 								<Card className={classes.card}>
-									<CardMedia
-										className={classes.cardMedia}
-										image="https://source.unsplash.com/random"
-										title="Image title"
-									/>
+									<Link
+										color="textPrimary"
+										href={'post/' + post.slug}
+										className={classes.link}
+									>
+										<CardMedia
+											className={classes.cardMedia}
+											image="https://source.unsplash.com/random"
+											title="Image title"
+										/>
+									</Link>
 
 									<CardContent className={classes.cardContent}>
 										<Typography
@@ -68,19 +75,13 @@ const Posts = ((props) => {
 										>
 											{post.title.substr(0, 50)}...
 										</Typography>
-
 										<div className={classes.postText}>
-											<Typography
-												component="p"
-												color="textPrimary"
-											></Typography>
-
-											<Typography variant="p" color="textSecondary">
-												{post.excerpt.substr(0, 60)}...
+											<Typography color="textSecondary">
+												{post.excerpt.substr(0, 40)}...
 											</Typography>
-
 										</div>
 									</CardContent>
+
 								</Card>
 							</Grid>
 						);
@@ -90,7 +91,6 @@ const Posts = ((props) => {
 			</Container>
 		</React.Fragment>
 	);
-});
-
+};
 
 export default Posts;

@@ -5,7 +5,6 @@ from blog.models import Post
 from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly
 from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view, permission_classes
 
 
 class PostUserWritePermission(BasePermission):
@@ -23,7 +22,7 @@ class PostList(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
     # for the slug field access
-    def get_object(self, quryset=None, pk=None, *args, **kwargs):       
+    def get_object(self, quryset=None, *args, **kwargs):       
         item = self.kwargs.get('pk')
         return get_object_or_404(Post, title=item)   # using letters instead of number access 
         

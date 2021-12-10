@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
@@ -24,7 +24,7 @@ class CustomUserCreate(APIView):    # register
         
         
 class BlackListTokenView(APIView):  # logout
-    permission_class = [AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, AllowAny]
     
     def post(self, request, *args, **kwargs):
         try: 

@@ -26,7 +26,7 @@ const App = (() => {
         //         });
         //     });
 
-        // same functionality as fetch but used axios instead
+        // same as the commented one in fetched and used axios in here instead
         axios.get(apiUrl).then((posts) => {
             const allPosts = posts.data;
             setAppState({
@@ -44,6 +44,5 @@ const App = (() => {
         </div>
     );
 });
-
 
 export default App;

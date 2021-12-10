@@ -155,7 +155,6 @@ const SignUp = () => {
                                     fullWidth
                                     id="email"
                                     label="Email Address"
-                                    variant='filled'
                                     name="email"
                                     autoComplete="email"
                                     onChange={handleChange}
