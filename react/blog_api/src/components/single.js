@@ -42,7 +42,7 @@ const Post = (() => {
                         color='textPrimary'
                         gutterButtom
                     >
-                        {data.post.title}
+                        {data.posts.title}
                     </Typography>
                     
                     <Typography
