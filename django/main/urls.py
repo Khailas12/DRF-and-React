@@ -7,6 +7,9 @@ from rest_framework.schemas import get_schema_view
 from rest_framework.documentation import include_docs_urls
 
 
+API_TITLE = 'BlogAPI'
+API_DESCRIPTION = 'API for BlogAPI'
+
 urlpatterns = [
     # jwt 
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),    # fetching or getting token
@@ -21,11 +24,11 @@ urlpatterns = [
      
     path('', include('blog.urls', namespace='blog')),
     
-    path('docs/', include_docs_urls(title='BlogAPI')),
+    path('docs/', include_docs_urls(title=API_TITLE)),
     
     path('schema', get_schema_view(
-        title='BlogAPI', 
-        description='API for BlogAPI',
+        title=API_TITLE, 
+        description=API_DESCRIPTION,
         version='1.0.0', 
         ), name='openapi-schema'
     ),

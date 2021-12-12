@@ -1,9 +1,7 @@
-from django.http import request
-from rest_framework import generics, viewsets, filters, status
-from rest_framework.response import Response
+from rest_framework import generics, viewsets
 from blog.models import Post
 from .serializers import PostSerializer
-from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import SAFE_METHODS, BasePermission
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication,BasicAuthentication
 
@@ -20,19 +18,24 @@ class PostUserWritePermission(BasePermission):
 # CRUD model viewset. This simplifies code comparing with the commented codes below
 class PostList(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
-    authentication_classes = (TokenAuthentication,) 
 
     serializer_class = PostSerializer
 
-    # for the slug field access
-    def get_object(self, quryset=None, *args, **kwargs):       
-        item = self.kwargs.get('pk')
-        return get_object_or_404(Post, title=item)   # using letters instead of number access 
-        
-    def get_queryset(self):     # custom queryset
-        return Post.objects.all()
+    def get_queryset(self):
+        user = self.request.user
+        return Post.objects.filter(author=user) # makes user posts to their belonging
 
 
+class PostDetail(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
+    permission_classes = [PostUserWritePermission]
+    queryset = Post.objects.all()   # filteres data and filters based on the Id <int:pk> 
+    serializer_class = PostSerializer
+
+    def get_object(self, **kwargs):
+        slug = self.kwargs.get('pk')
+        return get_object_or_404(Post, slug=slug)
+    
+    
 """         
 # one              
 class PostList(viewsets.ViewSet):
@@ -58,10 +61,4 @@ class PostListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Post.post_objects.all()  # post_objects = custom manager which returns the published one
     serializer_class = PostSerializer
-
-class PostDetailView(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
-    permission_classes = [PostUserWritePermission]
-    queryset = Post.objects.all()   # filteres data and filters based on the Id <int:pk> 
-    serializer_class = PostSerializer
-
 """
