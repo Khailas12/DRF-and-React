@@ -145,15 +145,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # https://www.django-rest-framework.org/api-guide/permissions/
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
-    #     'rest_framework.authentication.SessionAuthentication',
-    #     'rest_framework.authentication.TokenAuthentication',
-    # ),
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
 }
 
 CORS_ALLOWED_ORIGINS = [

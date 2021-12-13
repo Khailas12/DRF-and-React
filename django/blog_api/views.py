@@ -1,7 +1,8 @@
 from rest_framework import generics, viewsets
+from rest_framework import permissions
 from blog.models import Post
 from .serializers import PostSerializer
-from rest_framework.permissions import SAFE_METHODS, BasePermission
+from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication,BasicAuthentication
 from rest_framework import filters
@@ -19,11 +20,11 @@ class PostUserWritePermission(BasePermission):
 # CRUD model viewset. This simplifies code comparing with the commented codes below
 class PostList(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
-
+    authentication_classes = [TokenAuthentication]
     serializer_class = PostSerializer
 
     def get_queryset(self):
-        user = self.request.user
+        user = self.request.user.id
         return Post.objects.filter(author=user) # makes user posts to their belonging
 
 
@@ -46,6 +47,13 @@ class PostListDetailFilter(generics.ListAPIView):
     # '=' exact mathces
     # '@' full text search
     # '$' regex search
+   
+class PostSearch(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['^slug']
    
 """         
 # one              
