@@ -1,5 +1,5 @@
 from django.urls.conf import path
-from .views import PostList, PostDetail
+from .views import PostList, PostDetail, PostListDetailFilter
 from rest_framework.routers import DefaultRouter
 
 
@@ -12,5 +12,5 @@ app_name = 'blog_api'
 
 urlpatterns = [
     path('', PostList.as_view({'get': 'list', 'post': 'create'}), name='listcreate'),
-    path('post/', PostDetail.as_view(), name='detailcreate'),
+    path('search/custom/', PostListDetailFilter.as_view(), name='detailcreate'),
 ]

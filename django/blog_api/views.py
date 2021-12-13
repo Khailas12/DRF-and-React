@@ -4,6 +4,7 @@ from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, BasePermission
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication,BasicAuthentication
+from rest_framework import filters
 
 
 class PostUserWritePermission(BasePermission):
@@ -35,7 +36,16 @@ class PostDetail(generics.ListAPIView, PostUserWritePermission):
        slug = self.request.query_params.get('slug', None)
        return Post.objects.filter(slug=slug)
     
-   
+class PostListDetailFilter(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    filter_backends = [filters.SearchFilter]    # ?search=
+    search_fields = ['^slug']
+    
+    # '^' starts with search
+    # '=' exact mathces
+    # '@' full text search
+    # '$' regex search
    
 """         
 # one              
