@@ -1,8 +1,9 @@
 from rest_framework import generics, viewsets
 from rest_framework import permissions
+from rest_framework.decorators import permission_classes
 from blog.models import Post
 from .serializers import PostSerializer
-from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission
+from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission, IsAuthenticated
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication,BasicAuthentication
 from rest_framework import filters
@@ -18,19 +19,28 @@ class PostUserWritePermission(BasePermission):
                     
 
 # CRUD model viewset. This simplifies code comparing with the commented codes below
-class PostList(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
-    authentication_classes = [TokenAuthentication]
-    serializer_class = PostSerializer
 
+class PostList(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    # authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    serializer_class = PostSerializer
+    
     def get_queryset(self):
         user = self.request.user.id
-        return Post.objects.filter(author=user) # makes user posts to their belonging
+        return Post.objects.filter(author=user)
+
+# class PostList(viewsets.ModelViewSet):
+#     authentication_classes = (SessionAuthentication,TokenAuthentication)
+#     serializer_class = PostSerializer
+    
+#     def get_queryset(self):
+#         user = self.request.user.id
+#         return Post.objects.filter(author=user) # makes user posts to their belonging
 
 
-class PostDetail(generics.ListAPIView, PostUserWritePermission):
+class PostDetail(generics.RetrieveAPIView):
     permission_classes = [PostUserWritePermission]
-    queryset = Post.objects.all()   # filteres data and filters based on the Id <int:pk> 
+    # queryset = Post.objects.all()   # filteres data and filters based on the Id <int:pk> 
     serializer_class = PostSerializer
 
     def get_queryset(self):

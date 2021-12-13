@@ -11,7 +11,7 @@ app_name = 'blog_api'
 # urlpatterns = router.urls
 
 urlpatterns = [
-    path('', PostList.as_view({'get': 'list', 'post': 'create'}), name='listcreate'),
+    path('', PostList.as_view(), name='listcreate'),
     path('posts/', PostDetail.as_view(), name='detailcreate'),
     path('search/', PostListDetailFilter.as_view(), name='detailcreate'),
 ]
