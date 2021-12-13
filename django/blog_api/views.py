@@ -26,16 +26,17 @@ class PostList(viewsets.ModelViewSet):
         return Post.objects.filter(author=user) # makes user posts to their belonging
 
 
-class PostDetail(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
+class PostDetail(generics.ListAPIView, PostUserWritePermission):
     permission_classes = [PostUserWritePermission]
     queryset = Post.objects.all()   # filteres data and filters based on the Id <int:pk> 
     serializer_class = PostSerializer
 
-    def get_object(self, **kwargs):
-        slug = self.kwargs.get('pk')
-        return get_object_or_404(Post, slug=slug)
+    def get_queryset(self):
+       slug = self.request.query_params.get('slug', None)
+       return Post.objects.filter(slug=slug)
     
-    
+   
+   
 """         
 # one              
 class PostList(viewsets.ViewSet):

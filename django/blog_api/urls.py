@@ -12,5 +12,5 @@ app_name = 'blog_api'
 
 urlpatterns = [
     path('', PostList.as_view({'get': 'list', 'post': 'create'}), name='listcreate'),
-    path('post/<str:pk>/', PostDetail.as_view(), name='detailcreate'),
+    path('post/', PostDetail.as_view(), name='detailcreate'),
 ]
