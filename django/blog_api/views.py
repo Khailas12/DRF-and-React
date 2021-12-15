@@ -21,10 +21,11 @@ class PostUserWritePermission(BasePermission):
 # CRUD model viewset. This simplifies code comparing with the commented codes below
 
 class PostList(generics.ListAPIView):
+
     permission_classes = [IsAuthenticated]
-    # authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
     serializer_class = PostSerializer
-    
+
     def get_queryset(self):
         user = self.request.user.id
         return Post.objects.filter(author=user)
