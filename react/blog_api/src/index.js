@@ -10,6 +10,7 @@ import Register from './components/register';
 import Login from './components/login';
 import Logout from './components/logout';
 import Single from './components/single';
+import Search from './components/search';
 
 
 /* strictmode highlights potential problems in an app */
@@ -24,6 +25,7 @@ const routing = (
                 <Route path='/login' element={<Login />} />
                 <Route path='/logout' element={<Logout />} />
                 <Route path='/post/:slug' element={<Single />} />
+                <Route path='/search' component={<Search />} />
                 
             </Routes>
             <Footer />
