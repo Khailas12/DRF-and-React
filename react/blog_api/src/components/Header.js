@@ -7,6 +7,8 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import SearchBar from '@material-ui/core/SearchBar';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +25,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (() => {
     const classes = useStyles();
+    let navigate = useNavigate();
+
+    const [data, setData] = useData({ search: ''});
+
+    const goSearch = (e) => {
+        navigate.push({
+            pathname: '/search/',
+            search: '?search=' + data.search,
+        });
+    }
+
     return (
         <React.Fragment>
             <CssBaseline />
@@ -48,6 +61,13 @@ const Header = (() => {
                             Blog
                         </Link>
                     </Typography>
+
+                    <SearchBar 
+                        value={data.search}
+                        onChange={(newValue) => setData({ search: newValue })}
+                        onRequestSearch={() => goSearch(data.search)}
+                    />
+
                     <nav>
                         <Link
                             color="textPrimary"
