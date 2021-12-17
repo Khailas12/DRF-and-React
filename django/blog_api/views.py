@@ -24,7 +24,7 @@ class PostUserWritePermission(BasePermission):
 class PostList(generics.ListAPIView):
     
     permission_classes = [IsAuthenticatedOrReadOnly]
-    # authentication_classes = (TokenAuthentication, SessionAuthentication, BasicAuthentication)
+    authentication_classes = (TokenAuthentication, SessionAuthentication, BasicAuthentication)
     serializer_class = PostSerializer
     filter_backends = (DjangoFilterBackend,)
     
