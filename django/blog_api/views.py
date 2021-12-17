@@ -1,12 +1,13 @@
 from rest_framework import generics, viewsets
-from rest_framework import permissions
+from rest_framework import permissions, authentication
 from rest_framework.decorators import permission_classes
 from blog.models import Post
 from .serializers import PostSerializer
-from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission, IsAuthenticated
+from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication,BasicAuthentication
 from rest_framework import filters
+from rest_framework.decorators import action
 
 
 class PostUserWritePermission(BasePermission):
@@ -19,17 +20,18 @@ class PostUserWritePermission(BasePermission):
                     
 
 # CRUD model viewset. This simplifies code comparing with the commented codes below
-
+@action(detail=False, methods=['GET'])
 class PostList(generics.ListAPIView):
 
-    permission_classes = [IsAuthenticated]
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = [IsAuthenticatedOrReadOnly, ]
+    # authentication_classes = (TokenAuthentication, )
     serializer_class = PostSerializer
 
     def get_queryset(self):
         user = self.request.user.id
         return Post.objects.filter(author=user)
-
+    
+    
 # class PostList(viewsets.ModelViewSet):
 #     authentication_classes = (SessionAuthentication,TokenAuthentication)
 #     serializer_class = PostSerializer

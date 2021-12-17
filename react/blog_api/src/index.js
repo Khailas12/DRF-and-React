@@ -25,7 +25,7 @@ const routing = (
                 <Route path='/login' element={<Login />} />
                 <Route path='/logout' element={<Logout />} />
                 <Route path='/post/:slug' element={<Single />} />
-                <Route path='/search' component={<Search />} />
+                <Route path='/search' element={<Search />} />
                 
             </Routes>
             <Footer />
