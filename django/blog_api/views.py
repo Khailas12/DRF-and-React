@@ -4,10 +4,10 @@ from rest_framework.decorators import permission_classes
 from blog.models import Post
 from .serializers import PostSerializer
 from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly
-from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication,BasicAuthentication
 from rest_framework import filters
 from rest_framework.decorators import action
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class PostUserWritePermission(BasePermission):
@@ -22,15 +22,21 @@ class PostUserWritePermission(BasePermission):
 # CRUD model viewset. This simplifies code comparing with the commented codes below
 @action(detail=False, methods=['GET'])
 class PostList(generics.ListAPIView):
-
-    permission_classes = [IsAuthenticatedOrReadOnly, ]
-    # authentication_classes = (TokenAuthentication, )
-    serializer_class = PostSerializer
-
-    def get_queryset(self):
-        user = self.request.user.id
-        return Post.objects.filter(author=user)
     
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    # authentication_classes = (TokenAuthentication, SessionAuthentication, BasicAuthentication)
+    serializer_class = PostSerializer
+    filter_backends = (DjangoFilterBackend,)
+    
+    def get_queryset(self):
+        author = self.request.query_params.get('author', None)
+        
+        queryset = Post.objects.all()
+        
+        if author:
+            queryset = queryset.filter(author__name__contains=author)
+
+        return queryset
     
 # class PostList(viewsets.ModelViewSet):
 #     authentication_classes = (SessionAuthentication,TokenAuthentication)
@@ -56,11 +62,11 @@ class PostListDetailFilter(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]    # ?search=
     search_fields = ['^slug']
     
-    # '^' starts with search
-    # '=' exact mathces
-    # '@' full text search
-    # '$' regex search
-   
+    # 1. '^' Starts-with search
+    # 2. '=' Exact matches
+    # 3. '@' Full-text search (Currently only supported Django's PostgreSQL backend)
+    # 4. '$' Regex search
+    
 class PostSearch(generics.ListAPIView):
     permission_classes = [AllowAny]
     queryset = Post.objects.all()

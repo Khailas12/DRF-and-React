@@ -153,10 +153,14 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
         # 'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
     ),
 }
 
