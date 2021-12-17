@@ -31,18 +31,19 @@ class PostList(generics.ListAPIView):
         queryset = Post.objects.all()
         
         if author:
-            queryset = queryset.filter(author__name__contains=author)
+            return queryset.filter(user=author)
 
         return queryset
     
-# class PostList(viewsets.ModelViewSet):
-#     authentication_classes = (SessionAuthentication,TokenAuthentication)
-#     serializer_class = PostSerializer
+"""
+class PostList(viewsets.ModelViewSet):
+    authentication_classes = (SessionAuthentication,TokenAuthentication)
+    serializer_class = PostSerializer
     
-#     def get_queryset(self):
-#         user = self.request.user.id
-#         return Post.objects.filter(author=user) # makes user posts to their belonging
-
+    def get_queryset(self):
+        user = self.request.user.id
+        return Post.objects.filter(author=user) # makes user posts to their belonging
+"""
 
 class PostDetail(generics.RetrieveAPIView):
     permission_classes = [PostUserWritePermission]
@@ -59,10 +60,12 @@ class PostListDetailFilter(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]    # ?search=
     search_fields = ['^slug']
     
-    # 1. '^' Starts-with search
-    # 2. '=' Exact matches
-    # 3. '@' Full-text search (Currently only supported Django's PostgreSQL backend)
-    # 4. '$' Regex search
+    """ Basic functions
+    1. '^' Starts-with search
+    2. '=' Exact matches
+    3. '@' Full-text search (Currently only supported Django's PostgreSQL backend)
+    4. '$' Regex search
+    """
     
 class PostSearch(generics.ListAPIView):
     permission_classes = [AllowAny]
@@ -71,8 +74,7 @@ class PostSearch(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['^slug']
    
-"""         
-# one              
+"""                    
 class PostList(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Post.post_objects.all()
@@ -91,7 +93,6 @@ class PostList(viewsets.ViewSet):
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# two 
 class PostListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Post.post_objects.all()  # post_objects = custom manager which returns the published one
