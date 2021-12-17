@@ -1,9 +1,7 @@
-from rest_framework import generics, viewsets
-from rest_framework import permissions, authentication
-from rest_framework.decorators import permission_classes
+from rest_framework import generics
 from blog.models import Post
 from .serializers import PostSerializer
-from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import SAFE_METHODS, AllowAny, BasePermission, IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication,BasicAuthentication
 from rest_framework import filters
 from rest_framework.decorators import action
@@ -30,7 +28,6 @@ class PostList(generics.ListAPIView):
     
     def get_queryset(self):
         author = self.request.query_params.get('author', None)
-        
         queryset = Post.objects.all()
         
         if author:
