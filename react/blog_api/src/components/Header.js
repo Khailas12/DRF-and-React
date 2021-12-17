@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import SearchBar from '@material-ui/core/SearchBar';
+import SearchBar from "./SearchBar";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,9 +32,10 @@ const Header = (() => {
     const goSearch = (e) => {
         navigate.push({
             pathname: '/search/',
-            search: '?search=' + data.search,
+            search: '?search=' + data.search
         });
-    }
+        window.location.reload();
+    };
 
     return (
         <React.Fragment>

@@ -9,7 +9,7 @@ import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
@@ -68,7 +68,7 @@ const Login = (() => {
     };
 
     const theme = createTheme();
-    const imageUrl = "https://res.cloudinary.com/dzzjp6xlv/image/upload/v1638623609/18894_wspy3l.jpg"
+    const imageUrl = "https://res.cloudinary.com/dzzjp6xlv/image/upload/v1638623609/18894_wspy3l.jpg";
 
     return (
         <ThemeProvider theme={theme}>

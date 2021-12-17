@@ -94,7 +94,7 @@ const Posts = (props) => {
 								</Card>
 
 							</Grid>
-						)
+						);
 					})}
 				</Grid>
 			</Container>
