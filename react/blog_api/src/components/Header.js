@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import SearchBar from "./SearchBar";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -62,12 +62,12 @@ const Header = (() => {
                             Blog
                         </Link>
                     </Typography>
-
+{/* 
                     <SearchBar 
                         value={data.search}
                         onChange={(newValue) => setData({ search: newValue })}
                         onRequestSearch={() => goSearch(data.search)}
-                    />
+                    /> */}
 
                     <nav>
                         <Link
