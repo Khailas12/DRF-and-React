@@ -1,8 +1,8 @@
 from pathlib import Path
-from dotenv import load_dotenv
 import os
 import sys
 from datetime import timedelta
+from dotenv import load_dotenv
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,6 +73,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 load_dotenv()
 user = os.getenv('USER')
 password = os.getenv('PASSWORD')
+
 
 # https://stackoverflow.com/questions/14186055/django-test-app-error-got-an-error-creating-the-test-database-permission-deni    -> soution for db permission denied error
 TESTING = sys.argv[1:2] == ['test']
